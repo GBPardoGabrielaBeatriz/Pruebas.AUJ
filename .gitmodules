@@ -1,0 +1,3 @@
+[submodule "apirest"]
+	path = apirest
+	url = https://github.com/andresmdg/apirest.git
