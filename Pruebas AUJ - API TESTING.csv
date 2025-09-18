@@ -1,0 +1,115 @@
+COLECCION DE POSTMAN,,,,,,,,,,,,,,,,,,,,,,,
+ID-CP,ID-HU,TIPO DE PRUEBA,DESCRIPCIÓN,CRITICIDAD,PRECONDICIONES,TIPO DE CASO,VALIDACIONES DE CAMPO,DATOS DE ENTRADA,PASOS A EJECUTAR,MENSAJE ESPERADO,RESULTADO ESPERADO,RESULTADO OBTENIDO,ESTADO DE EJECUCIÓN,RESULTADO DE EJECUCIÓN,POST CONDICIONES ,CP INTERRELACIONADO,ESCRITO POR,EJECUTADO POR,OBSERVACIONES,RETEST,EJECUCION V2,FIXED,EVIDENCIA
+CP 01 ,GET Usuarios,API,Obtencion de usuarios exitosa,ALTA,"La plataforma cuenta con ususarios ya registrados en la plataforma.
+Usuario se encuentra situado y logeado en la herramienta Postman
+Genera una nueva peticion GET",POSITIVO,-,"URL :GET/users
+AUTH: noAuth","Configura las variables de entorno pertinentes para la peticion.
+Hacer click en el boton Send
+
+","{ ""success"": true,
+message"": ""Se obtuvo la lista de usuarios correctamente.""  }",Token JWT en respuesta (200 OK),,EJECUTADO,EXITOSO,,,GABRIELA PARDO,GABRIELA PARDO,,NO,PENDIENTE,,
+CP 02,GET Usuarios,API,Obtencion de usuarios exitosa (lista vacia),ALTA,".
+Usuario se encuentra situado y logeado en la herramienta Postman
+Genera una nueva peticion GET",POSITIVO,-,"URL :GET/users
+AUTH: noAuth","Configura las variables de entorno pertinentes para la peticion.
+Hacer click en el boton Send
+
+","{ ""success"": false,
+message"": ""Lista de ususarios se encuentra vacia""  }",Token JWT en respuesta (400 BAD REQUEST),,EJECUTADO,EXITOSO,,,GABRIELA PARDO,GABRIELA PARDO,,NO,PENDIENTE,,
+CP 01,POST Usuarios,API,Creacion de usuarios exitosa,ALTA,".
+Usuario se encuentra situado y logeado en la herramienta Postman
+Genera una nueva peticion POST",POSITIVO,-,"URL :POST/users.
+AUTH : noAuth
+BODY REQUEST :
+{
+nombre: string
+email: ejemplo@test.com
+}
+","Configura las variables de entorno pertinentes para la peticion.
+Hacer click en el boton Send
+
+","{
+  ""message"": ""Usuario creado exitosamente"",
+  ""success"": true
+}","Token JWT en respuesta (201 OK)
+",,EJECUTADO,EXITOSO,,,GABRIELA PARDO,GABRIELA PARDO,,NO,PENDIENTE,,
+CP 02,POST Usuarios,API,Creacion de usuarios dejando campos sin completar,ALTA,"Usuario se encuentra situado y logeado en la herramienta Postman
+Genera una nueva peticion POST",NEGATIVO,-,"URL :POST/users
+AUTH: noAuth
+BODY REQUEST :
+{
+nombre: "" ""
+email: "" ""
+}
+","Configura las variables de entorno pertinentes para la peticion.
+Hacer click en el boton Send","{  ""message"": ""Ingrese los campos requeridos"",  ""success"":false}",Token JWT en respuesta (400 BAD REQUEST),Usuario recibe un codigo de respuesta 500 Internal Server Error,EJECUTADO,FALLIDO,,,GABRIELA PARDO,GABRIELA PARDO,,SI,PENDIENTE,,BUG- No se visualiza mensaje de alerta sobre campos vacios.mp4
+CP 04,POST Usuarios,API,Creacion de usuarios ingresando datos de formato incorrecto,ALTA,"Usuario se encuentra situado y logeado en la herramienta Postman
+Genera una nueva peticion POST",NEGATIVO,-,"URL :POST/users
+AUTH:noAuth
+BODY REQUEST :
+{
+nombre: string!!!
+email: ejemplo@test.com
+
+}
+","Configura las variables de entorno pertinentes para la peticion.
+Hacer click en el boton Send","{  ""message"": ""Formato incorrecto ."",  ""success"": false}",Token JWT en respuesta (400 BAD REQUEST),Usuario es creado con credenciales de formato incorrecto,EJECUTADO,FALLIDO,,,GABRIELA PARDO,GABRIELA PARDO,,SI,PENDIENTE,,BUG-Usuario es creado con datos de formato incorrecto.mp4
+CP 05,POST Usuarios,API,Creacion de usuarios ingresando un email de formato incorrecto,ALTA,"Usuario se encuentra situado y logeado en la herramienta Postman
+Genera una nueva peticion POST",NEGATIVO,-,"URL :POST/users
+AUTH: noAuth
+BODY REQUEST :
+{nombre: string
+email: ""ejemplo.test.com""}","Configura las variables de entorno pertinentes para la peticion.
+Hacer click en el boton Send","{  ""message"": ""Mail de formato incorrecto"",  ""success"":false}",Token JWT en respuesta (400 BAD REQUEST),Usuario recibe un codigo de respuesta 500 Internal Server Error,EJECUTADO,FALLIDO,,,GABRIELA PARDO,GABRIELA PARDO,,SI,PENDIENTE,,BUG- Erro 500 al ingresar un email invalido.mp4
+CP 06,POST Usuarios,API,Creacion de ingresando un email ya registrado,MEDIA,"Usuario se encuentra situado y logeado en la herramienta Postman
+Genera una nueva peticion POST",NEGATIVO,-,"URL :POST/users.
+AUTH : noAuth
+BODY REQUEST :
+{
+nombre: string
+email: ejemplo@test.com
+}
+","Configura las variables de entorno pertinentes para la peticion.
+Hacer click en el boton Send","{  ""message"": ""Email ya registrado"",  ""success"":false}",Token JWT en respuesta (400 BAD REQUEST),"Usuario visualiza el mensaje de registro duplicado correctamente.
+
+Se visualiza mensaje de respuesta 409 CONFLICT",EJECUTADO,EXITOSO,,,GABRIELA PARDO,GABRIELA PARDO,,NO,PENDIENTE,,
+CP 01,DELETE Usuario,API,Usuario es eliminado exitosamente,ALTA,"Usuario se encuentra situado y logeado en la herramienta Postman
+Genera una nueva peticion DELETE",POSITIVO,-,"URL : DELETE/user/:id
+AUTH:noAuth
+PATH PARAMETER : id usuario
+","Configura las variables de entorno pertinentes para la peticion.
+Hacer click en el boton Send","{
+  ""success"": true,
+  ""message"": ""Usuario eliminado exitosamente."",
+
+",Token JWT en respuesta (204 OK),"Usuario es eliminado correctamente
+
+Se visualiza mernsaje de respuesta 200 OK",EJECUTADO,EXITOSO,,,GABRIELA PARDO,GABRIELA PARDO,,NO,PENDIENTE,,
+CP 02,DELETE Usuario,API,Eliminacion de usuarIo ya eliminado previamente,MEDIA,"Usuario se encuentra situado y logeado en la herramienta Postman
+Genera una nueva peticion DELETE",NEGATIVO,-,"URL : DELETE/user/:id
+AUTH: noAuth
+PATH PARAMETER : id valido ya eliminado previamente","Configura las variables de entorno pertinentes para la peticion.
+Hacer click en el boton Send","{
+  ""success"": false,
+  ""message"": ""Usuario con id : """"  no encontrado."",
+
+",Token JWT en respuesta (404 NOT FOUND),"Usuario obtiene codigo de respuesta 404
+{
+    ""error"": ""User not found""
+}",EJECUTADO,EXITOSO,,,GABRIELA PARDO,GABRIELA PARDO,,NO,PENDIENTE,,
+CP 02,DELETE Usuario,API,Eliminacion de usuarIo ingresando un id invalido,MEDIA,"Usuario se encuentra situado y logeado en la herramienta Postman
+Genera una nueva peticion DELETE",NEGATIVO,-,"URL : DELETE/user/:id
+AUTH: noAuth
+PATH PARAMETER : id invalido
+(-1)","Configura las variables de entorno pertinentes para la peticion.
+Hacer click en el boton Send","{
+  ""success"": false,
+  ""message"": ""Usuario con id : """"  no encontrado."",
+
+",Token JWT en respuesta (400 BAD REQUEST),Usuario obtiene un error 500,EJECUTADO,FALLIDO,,,GABRIELA PARDO,GABRIELA PARDO,,SI,PENDIENTE,,BUG-Error 500 al ingresar un id invalido.mp4
+CP0 02,SWAGGER,Exploratorio,Correcta aplicacion de metodo HTTP,MEDIA,Verificar que cada endpoint tenga el método HTTP adecuado,POSITIVO,-,-,,-,"GET, POST, PUT, DELETE correctamente definidos",,PENDIENTE,PENDIENTE,,,GABRIELA PARDO,GABRIELA PARDO,,,PENDIENTE,,
+CP0 03,SWAGGER,Exploratorio,Parametros previamente definidos bien documentados,MEDIA,Verificar que todos los parámetros de entrada estén descriptos,POSITIVO,-,-,,-,"Cada endpoint muestra qué parámetros requiere (query, path, body, headers, etc.)",,PENDIENTE,PENDIENTE,,,GABRIELA PARDO,GABRIELA PARDO,,,PENDIENTE,,
+CP0 04,SWAGGER,Exploratorio,Validar codigos de estado,MEDIA,Validar que se documentan los posibles status codes,POSITIVO,-,-,,-,"Por ejemplo: 200, 201, 400, 401, 404, 500, etc. con descripción de su uso",,PENDIENTE,PENDIENTE,,,GABRIELA PARDO,GABRIELA PARDO,,,PENDIENTE,,
+CP0 05,SWAGGER,Exploratorio,Validar ejemplos de respuesta en formato JSON,MEDIA,Confirmar que haya ejemplos de respuesta,POSITIVO,-,-,,-,Cada endpoint muestra un ejemplo claro de cómo se ve la respuesta,,PENDIENTE,PENDIENTE,,,GABRIELA PARDO,GABRIELA PARDO,,,PENDIENTE,,
+CP0 06,SWAGGER,Exploratorio,Validar mensajes de respuesta,MEDIA,Revisar que los mensajes de éxito/error en Swagger sean comprensibles,POSITIVO,-,-,,-,Usuario comprende la utilizacion del endpoint al visualizar el mensaje de respuesta,,PENDIENTE,PENDIENTE,,,GABRIELA PARDO,GABRIELA PARDO,,,PENDIENTE,,
+CP0 07,SWAGGER,Exploratorio,Autenticacion,MEDIA,Validar la correcta documentacion de accesos,POSITIVO,-,-,,-,Swagger deberia mostrar cómo agregar el token JWT (Authorization: Bearer),,PENDIENTE,PENDIENTE,,,GABRIELA PARDO,GABRIELA PARDO,,,PENDIENTE,,
