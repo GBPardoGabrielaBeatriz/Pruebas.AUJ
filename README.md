@@ -1,5 +1,5 @@
 
-# Pruebas.AUJ
+# Reto QA | Adopta Un Junior
 
 Repositorio de pruebas del proyecto AUJ, incluyendo sets de pruebas, evidencia y tests automatizados. Contiene además el backend como submódulo.
 
